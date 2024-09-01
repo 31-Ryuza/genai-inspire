@@ -46,9 +46,9 @@ def plot_fasilitas(df_fasilitas, selected_year):
     # Remove confidence intervals by setting ci to None
     ax = sns.barplot(x="nama_kabupaten", y="jumlah_desa", data=data_sort, palette="Blues_d", ci=None)
     
-    plt.title(f'Jumlah Fasilitas Pembuangan Desa per Kabupaten pada Tahun {selected_year}')
-    plt.xlabel('Nama Kabupaten')
-    plt.ylabel('Jumlah Desa')
+    plt.title(f'Number of Village Waste Disposal Facilities per District in the Year {selected_year}')
+    plt.xlabel('District Name')
+    plt.ylabel('Number of Villages')
     plt.xticks(rotation=45, ha='right')
     
     # Add data labels (int values)
@@ -72,9 +72,9 @@ def plot_sungai(df_sungai, selected_year):
     
     ax = sns.barplot(x="nama_kabupaten", y="jumlah", data=filtered_data, palette="Reds_d")
     
-    plt.title(f'Jumlah Sungai Tercemar per Kabupaten pada Tahun {selected_year}')
-    plt.xlabel('Nama Kabupaten')
-    plt.ylabel('Jumlah Sungai Tercemar')
+    plt.title(f'Number of Polluted Rivers per District in {selected_year}')
+    plt.xlabel('District Name')
+    plt.ylabel('Number of Polluted Rivers')
     plt.xticks(rotation=45, ha='right')
     
     # Add data labels (int values)
@@ -93,22 +93,22 @@ df_fasilitas, df_sungai = load_data()
 
 # Filter for year selection
 years = sorted(df_fasilitas['tahun'].unique())
-selected_year = st.selectbox("Pilih Tahun:", years)
+selected_year = st.selectbox("Select Year:", years)
 
 # Dropdown menu to select which data to visualize
-data_selection = st.selectbox("Pilih data yang ingin divisualisasikan:", 
-                              ["Fasilitas Pembuangan Desa", "Sungai Tercemar"])
+data_selection = st.selectbox("Select the data you want to visualize:", 
+                              ["Village Waste Disposal Facilities", "Polluted River"])
 
 # Display the selected chart
-if data_selection == "Fasilitas Pembuangan Desa":
-    st.subheader(f'Jumlah Fasilitas Pembuangan Desa per Kabupaten pada Tahun {selected_year}')
+if data_selection == "Village Waste Disposal Facilities":
+    st.subheader(f'Number of Village Waste Disposal Facilities per Regency in the Year {selected_year}')
     plot_fasilitas(df_fasilitas, selected_year)
-elif data_selection == "Sungai Tercemar":
-    st.subheader(f'Jumlah Sungai Tercemar per Kabupaten pada Tahun {selected_year}')
+elif data_selection == "Polluted River":
+    st.subheader(f'Number of Polluted Rivers per District in {selected_year}')
     plot_sungai(df_sungai, selected_year)
 
 # Chatbot Section
-user_input = st.text_input("Enter your prompt:", value="Rekap data limbah cair")
+user_input = st.text_input("Enter your prompt:", value="Waste water data recap")
 
 if st.button("Send"):
     with st.spinner('Processing...'):
